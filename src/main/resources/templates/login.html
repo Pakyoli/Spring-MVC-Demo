@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8"/>
+    <title>My SpringMVC Demo</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0-alpha1/jquery.min.js"/>
+    <link href="../static/css/sringCSS.css"
+          th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form class="form" th:action="@{/login}" method="post">
+            <label for="username">Username: </label>
+            <input type="text" id="username" name="username"/><br/>
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password"/><br/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="Log in"/>
+        </form>
+    </div>
+    <div class="row" th:if="${error != null}">
+        <label th:text="${error}">error</label>
+    </div>
+</div>
+</body>
+</html>
