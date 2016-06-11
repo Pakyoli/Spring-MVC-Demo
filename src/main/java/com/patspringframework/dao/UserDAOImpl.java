@@ -2,8 +2,11 @@ package com.patspringframework.dao;
 
 import com.patspringframework.Utilities.dbUtil;
 import com.patspringframework.dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +17,10 @@ import java.util.List;
  * Created by pakyo_000 on 6/6/2016.
  */
 @Repository
-public class UserDAOImpl implements DAO {
+public class UserDAOImpl implements UserDAO {
+
+    @Autowired
+    DriverManagerDataSource dataSource;
 
     @Override
     public void create(Object object) {
@@ -44,16 +50,17 @@ public class UserDAOImpl implements DAO {
     }
 
     @Override
-    public List retrieve() {
+    public List getAll() {
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List users = new ArrayList();
         User user;
-
+        Connection conn = null;
         try{
+            conn = dataSource.getConnection();
             String query = "select * from users;";
-            stmt = dbUtil.getConn().prepareStatement(query);
+            stmt = conn.prepareStatement(query);
             rs = stmt.executeQuery();
 
             while(rs!=null && rs.next()){
@@ -65,13 +72,18 @@ public class UserDAOImpl implements DAO {
                 user.setPassword(rs.getString("password"));
                 user.setEnabled(rs.getInt("enabled"));
                 user.setRole_id(rs.getInt("role_id"));
-                this.addChildEntities(user);
+//                this.addChildEntities(user);
                 users.add(user);
             }
         }catch (SQLException se){
             se.printStackTrace();
         }finally {
-            dbUtil.closeConn();
+//            dbUtil.closeConn();
+            try {
+                conn.close();
+            }catch (SQLException se){
+
+            }
             dbUtil.closeStmt(stmt);
             dbUtil.closeRS(rs);
         }
@@ -81,7 +93,37 @@ public class UserDAOImpl implements DAO {
 
     @Override
     public Object getById(Integer id) {
-        return null;
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        User user = new User();
+
+        try{
+
+            String query = "select * from users where id = ?";
+            stmt.setInt(1,id);
+            stmt = dbUtil.getConn().prepareStatement(query);
+            rs = stmt.executeQuery();
+
+            while(rs!=null && rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEnabled(rs.getInt("enabled"));
+                user.setRole_id(rs.getInt("role_id"));
+                this.addChildEntities(user);
+            }
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally {
+            dbUtil.closeConn();
+            dbUtil.closeStmt(stmt);
+            dbUtil.closeRS(rs);
+        }
+
+        return user;
     }
 
     @Override
@@ -90,12 +132,35 @@ public class UserDAOImpl implements DAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Object object) {
 
+        PreparedStatement stmt = null;
+        User user = (User)object;
+        try{
+            String query = "delete from users where id = ?";
+            stmt.setInt(1, user.getId());
+            stmt = dbUtil.getConn().prepareStatement(query);
+            stmt.execute();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            dbUtil.closeConn();
+            dbUtil.closeStmt(stmt);
+        }
     }
 
     private void addChildEntities(User user) {
         AddressDAOImpl addressDAO = DaoFactory.getAddressDao();
         user.setAddress(addressDAO.getByUserId(user.getId()));
+    }
+
+    @Override
+    public User getUserByUandP(String username, String password) {
+        return null;
+    }
+
+    @Override
+    public User getUserByHash(String hash) {
+        return null;
     }
 }

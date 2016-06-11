@@ -9,10 +9,13 @@
           rel="stylesheet" media="screen"/>
 
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0-alpha1/jquery.min.js"/>
-    <link href="../static/css/springCSS.css"
+    <link href="../../static/css/springCSS.css"
           th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 <h2>This is backoffice for admin only</h2>
+<div class="container">
+    <a th:href="@{/logout}">logout</a>
+</div>
 </body>
 </html>

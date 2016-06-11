@@ -7,9 +7,9 @@ import java.util.List;
  */
 public interface DAO{
     public void create(Object object);
-    public List retrieve();
+    public List getAll();
     public Object getById(Integer id);
     public void update(Object object);
-    public void delete(Integer id);
+    public void delete(Object object);
 }
 

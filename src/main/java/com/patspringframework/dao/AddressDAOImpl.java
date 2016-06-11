@@ -1,7 +1,6 @@
 package com.patspringframework.dao;
 
 import com.patspringframework.dto.Address;
-import com.patspringframework.dto.User;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class AddressDAOImpl implements DAO {
     }
 
     @Override
-    public List retrieve() {
+    public List getAll() {
         return null;
     }
 
@@ -35,7 +34,7 @@ public class AddressDAOImpl implements DAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Object object) {
 
     }
 }

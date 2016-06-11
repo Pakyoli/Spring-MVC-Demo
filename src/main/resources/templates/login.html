@@ -8,12 +8,15 @@
           th:href="@{/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css}"
           rel="stylesheet" media="screen"/>
 
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0-alpha1/jquery.min.js"/>
-    <link href="../static/css/sringCSS.css"
-          th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+    <!--<script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0-alpha1/jquery.min.js"/>-->
+    <link href="../static/css/springCSS.css" rel="stylesheet" media="all" type="text/css"
+          th:href="@{/css/springCSS.css}" />
 </head>
 <body>
 <div class="container">
+    <div class="row">
+        <p class="error" th:if="${error}" th:text="${error_message}">error message</p>
+    </div>
     <div class="row">
         <form class="form" th:action="@{/login}" method="post">
             <label for="username">Username: </label>
@@ -23,9 +26,6 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <input type="submit" value="Log in"/>
         </form>
-    </div>
-    <div class="row" th:if="${error != null}">
-        <label th:text="${error}">error</label>
     </div>
 </div>
 </body>
