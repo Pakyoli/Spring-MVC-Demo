@@ -1,5 +1,6 @@
 package com.patspringframework.configuration;
 
+import com.patspringframework.service.CustomAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     DataSource dataSource;
 
     @Autowired
+    CustomAuthSuccessHandler customAuthSuccessHandler;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
         auth
                 .jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(encoder())
                 .usersByUsernameQuery("select username, password, enabled from users where username = ?")
                 .authoritiesByUsernameQuery("select username, role from authorization where username = ?");
     }
@@ -32,10 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/backoffice/**").hasRole("ADMIN")
-//                .antMatchers("/welcome").access("hasRole('ADMIN') and hasRole('USER')")
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/logout").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/welcome").failureUrl("/login-error")
+                .formLogin().loginPage("/login").successHandler(customAuthSuccessHandler).failureUrl("/login-error")
                 .usernameParameter("username").passwordParameter("password")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/index")

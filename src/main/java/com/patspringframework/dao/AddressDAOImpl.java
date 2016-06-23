@@ -2,6 +2,7 @@ package com.patspringframework.dao;
 
 import com.patspringframework.dto.Address;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -36,5 +37,10 @@ public class AddressDAOImpl implements DAO {
     @Override
     public void delete(Object object) {
 
+    }
+
+    @Override
+    public Integer getSequence(Connection conn) {
+        return null;
     }
 }

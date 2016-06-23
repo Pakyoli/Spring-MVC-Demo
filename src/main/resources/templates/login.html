@@ -18,13 +18,34 @@
         <p class="error" th:if="${error}" th:text="${error_message}">error message</p>
     </div>
     <div class="row">
-        <form class="form" th:action="@{/login}" method="post">
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username"/><br/>
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password"/><br/>
+        <form class="form-horizontal" th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="username" name="username"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="password">Password: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" id="password" name="password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"/> Remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <input type="submit" value="Log in"/>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input class="btn btn-default" type="submit" value="Log in"/>
+                </div>
+            </div>
         </form>
     </div>
 </div>

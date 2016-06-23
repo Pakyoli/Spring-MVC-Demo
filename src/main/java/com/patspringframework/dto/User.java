@@ -18,7 +18,7 @@ public class User implements Serializable{
     private String password;
     private Address address;
     private int role_id;
-    private int enabled;
+    private boolean enabled;
     private Date dateCreated;
 
     public int getId() {
@@ -77,11 +77,11 @@ public class User implements Serializable{
         this.role_id = role_id;
     }
 
-    public int isEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
