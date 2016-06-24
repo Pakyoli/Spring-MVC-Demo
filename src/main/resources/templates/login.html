@@ -14,8 +14,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <p class="error" th:if="${error}" th:text="${error_message}">error message</p>
+    <div class="row info">
+        <p class="text-danger" th:if="${error}" th:text="${error_message}">error message</p>
     </div>
     <div class="row">
         <form class="form-horizontal" th:action="@{/login}" method="post">

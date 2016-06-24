@@ -35,14 +35,16 @@ public class IndexController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         LogoutService.logout(request,response);
-        return "/index";
+        return "redirect:/";
     }
 
+//    test only
     @RequestMapping("/welcome")
     public String welcome(){
         return "welcome";
     }
 
+//    test only
     @RequestMapping("/backoffice")
     public String backoffice(){
         return "backoffice/backoffice";

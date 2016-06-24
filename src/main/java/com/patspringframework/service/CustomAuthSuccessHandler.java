@@ -60,7 +60,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler{
                 url =  "/backoffice";
                 break;
             } else {
-                url = "/welcome";
+                url = "/";
                 break;
             }
         }
