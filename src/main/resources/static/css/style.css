@@ -1,15 +1,30 @@
 .form-control{
     margin-bottom: 20px;
 }
-
+/*#navbar{*/
+    /**/
+/*}*/
 .navbar-static-top{
+    padding-left: 18%;
+    padding-right: 18%;
     background-color: lightgray;
 }
 .disabled-link{
     pointer-events: none;
     cursor: default;
-    /*margin-left: 2px;*/
-    /*margin-right: 2px;*/
     padding-left: 2px !important;
-    /*padding-right: 2px !important;*/
+}
+
+.error .info-box{
+    position: relative;
+    max-width: 25% !important;
+}
+
+.info-box{
+    padding: auto;
+}
+
+.well{
+    margin: auto;
+    /*max-width: 75%;*/
 }

@@ -13,7 +13,7 @@
           th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<div class="container">
+<div class="container" th:fragment="content">
     <h2>This is backoffice for admin only</h2>
     <a th:href="@{/logout}">logout</a>
 </div>

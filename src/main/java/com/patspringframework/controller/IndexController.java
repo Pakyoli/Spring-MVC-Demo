@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/")
+    @RequestMapping({"/","index"})
     public String showHomePage(){
         return "index";
     }

@@ -2,51 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta http-equiv="content-type" content="text/html" charset="UTF-8"/>
-    <title>My SpringMVC Demo</title>
+    <title>Spring MVC Demo</title>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css}"
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"
           rel="stylesheet" media="screen"/>
 
-    <!--<script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0-alpha1/jquery.min.js"/>-->
-    <link href="../static/css/style.css" rel="stylesheet" media="all" type="text/css"
-          th:href="@{/css/style.css}" />
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.0.0/jquery.min.js"/>
+    <link href="../static/css/style.css"
+          th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row info">
-        <p class="text-danger" th:if="${error}" th:text="${error_message}">error message</p>
-    </div>
-    <div class="row">
-        <form class="form-horizontal" th:action="@{/login}" method="post">
-            <div class="form-group">
-                <label for="username" class="col-sm-2 control-label">Username: </label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" id="username" name="username"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="password">Password: </label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="password" id="password" name="password"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"/> Remember me
-                        </label>
+<div class="container" th:fragment="content">
+    <div class="well">
+        <div class="row info-box" th:if="${success}">
+            <p class="text-success alert alert-success col-sm-5 col-sm-offset-2" th:text="${message}">message</p>
+        </div>
+        <div class="row error"  th:if="${error}">
+            <p class="text-danger alert alert-danger col-sm-5 col-sm-offset-2" th:text="${error_message}">error message</p>
+        </div>
+
+        <div class="row">
+            <form class="form-horizontal" th:action="@{/login}" method="post">
+                <div class="form-group"></div>
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">Username: </label>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" id="username" name="username"/>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input class="btn btn-default" type="submit" value="Log in"/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="password">Password: </label>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="password" id="password" name="password"/>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"/> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input class="btn btn-primary btn-lg" style="margin-right: 20px" type="submit" value="Login"/>
+                        <input class="btn btn-default btn-lg" type="button" value="Cancel" onclick="javascript:window.location='/'"/>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>
